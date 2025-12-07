@@ -16,17 +16,18 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.31.2",
+    "@homicasa/config": "workspace:*",
     "@types/pg": "^8.11.11",
-    "@homicasa/config": "workspace:*"
+    "drizzle-kit": "^0.31.2"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
+    "dotenv": "catalog:",
+    "drizzle-cuid2": "^2.2.0",
     "drizzle-orm": "^0.44.2",
     "pg": "^8.14.1",
-    "dotenv": "catalog:",
     "zod": "^4.1.11"
   }
 }
