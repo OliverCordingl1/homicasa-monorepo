@@ -4,20 +4,33 @@ import { db } from "@homicasa/db";
 import * as schema from "@homicasa/db/schema/auth";
 
 export const auth = betterAuth({
-	database: drizzleAdapter(db, {
-		provider: "pg",
-
-		schema: schema,
-	}),
-	trustedOrigins: [process.env.CORS_ORIGIN || ""],
-	emailAndPassword: {
-		enabled: true,
-	},
-	advanced: {
-		defaultCookieAttributes: {
-			sameSite: "none",
-			secure: true,
-			httpOnly: true,
-		},
-	},
+  database: drizzleAdapter(db, {
+    provider: "pg",
+    schema: schema,
+  }),
+  trustedOrigins: [process.env.CORS_ORIGIN || ""],
+  emailAndPassword: {
+    enabled: true,
+  },
+  user: {
+    additionalFields: {
+      firstName: {
+        type: "string",
+        required: true,
+        fieldName: "firstName",
+      },
+      lastName: {
+        type: "string",
+        required: true,
+        fieldName: "lastName",
+      },
+    },
+  },
+  advanced: {
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+      httpOnly: true,
+    },
+  },
 });
