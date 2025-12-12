@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMultiStep } from "@homicasa/multistep";
 import { z } from "zod";
-import { CountrySelect } from "@/components/forms/country-select";
+import { CountrySelect } from "@/components/country-select";
 import { Button } from "@/components/ui/button";
 import { Plus, Minus } from "lucide-react";
 import { useState } from "react";
