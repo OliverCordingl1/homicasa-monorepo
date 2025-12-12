@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import UserMenu from "@/components/user-menu";
 
 export default function Dashboard({
   session,
@@ -50,6 +51,7 @@ export default function Dashboard({
           Welcome back, {(session.user as any).firstName}{" "}
           {(session.user as any).lastName}
         </p>
+        <UserMenu /> {/* Temporary for testing. needs removing later obvs */}
       </div>{" "}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Properties Card */}
