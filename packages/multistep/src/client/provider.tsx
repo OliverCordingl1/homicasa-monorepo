@@ -67,6 +67,7 @@ export function MultiStepFormProvider<T extends Record<string, unknown>>({
         const fieldName = issue.path.join(".");
         form.setFieldMeta(fieldName, (prev: any) => ({
           ...prev,
+          isTouched: true,
           errorMap: {
             onChange: issue.message,
           },

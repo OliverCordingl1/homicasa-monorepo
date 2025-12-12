@@ -1,5 +1,9 @@
 {
-	"name": "@homicasa/config",
-	"version": "0.0.0",
-	"private": true
+  "name": "@homicasa/config",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./countries.json": "./countries.json",
+    "./tsconfig.json": "./tsconfig.base.json"
+  }
 }
