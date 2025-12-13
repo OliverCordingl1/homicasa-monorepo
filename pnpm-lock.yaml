@@ -103,6 +103,9 @@ importers:
       '@homicasa/multistep':
         specifier: workspace:*
         version: link:../../packages/multistep
+      '@homicasa/schemas':
+        specifier: workspace:*
+        version: link:../../packages/schemas
       '@radix-ui/react-label':
         specifier: ^2.1.8
         version: 2.1.8(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
@@ -311,6 +314,22 @@ importers:
       '@types/react':
         specifier: 19.2.2
         version: 19.2.2
+
+  packages/schemas:
+    dependencies:
+      libphonenumber-js:
+        specifier: ^1.12.31
+        version: 1.12.31
+      zod:
+        specifier: ^4.1.13
+        version: 4.1.13
+    devDependencies:
+      '@homicasa/config':
+        specifier: workspace:*
+        version: link:../config
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
 
 packages:
 

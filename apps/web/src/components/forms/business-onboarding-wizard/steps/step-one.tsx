@@ -18,67 +18,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useMultiStep } from "@homicasa/multistep";
-import { z } from "zod";
-import { parsePhoneNumberFromString, type E164Number } from "libphonenumber-js";
-
-export const stepOneSchema = z.discriminatedUnion("businessType", [
-  z.object({
-    businessDisplayName: z.string().min(1, "Business Display Name is required"),
-    businessType: z.literal("sole_trader"),
-    businessLegalName: z.object({
-      firstName: z.string().min(1, "First name is required"),
-      lastName: z.string().min(1, "Last name is required"),
-    }),
-    businessEmail: z.email("Invalid email address"),
-    businessPhone: z
-      .string()
-      .min(1, "Business Phone is required")
-      .transform((val, ctx) => {
-        const phoneNumber = parsePhoneNumberFromString(val, {
-          defaultCountry: "GB",
-          extract: false,
-        });
-
-        if (!phoneNumber?.isValid()) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: "Invalid phone number",
-          });
-          return z.NEVER;
-        }
-
-        return phoneNumber.number;
-      }),
-  }),
-  z.object({
-    businessDisplayName: z.string().min(1, "Business Display Name is required"),
-    businessType: z.enum(["partnership", "limited_company", "llp", "other"]),
-    businessLegalName: z.string().min(1, "Business Legal Name is required"),
-    businessEmail: z.email("Invalid email address"),
-    businessPhone: z
-      .string()
-      .min(1, "Business Phone is required")
-      .transform((val, ctx) => {
-        const phoneNumber = parsePhoneNumberFromString(val, {
-          defaultCountry: "GB",
-          extract: false,
-        });
-
-        if (!phoneNumber?.isValid()) {
-          ctx.addIssue({
-            code: "custom",
-            message: "Invalid phone number",
-          });
-          return z.NEVER;
-        }
-
-        return phoneNumber.number;
-      }),
-  }),
-]);
+import type { E164Number } from "libphonenumber-js";
+import { type BusinessOnboardingStepOneSchemaType as StepOneSchemaType } from "@homicasa/schemas";
 
 export function StepOne() {
-  const { form, next } = useMultiStep<z.infer<typeof stepOneSchema>>();
+  const { form } = useMultiStep<StepOneSchemaType>();
 
   return (
     <div className="space-y-4 w-full">

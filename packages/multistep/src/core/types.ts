@@ -14,6 +14,10 @@ export type MultiStepConfig<T> = {
   stepSchemas: (z.ZodTypeAny | null)[];
   fullSchema: z.ZodType<T>;
   defaultValues: T;
+  /** Optional handler invoked when the final submit is triggered. */
+  onSubmit?: (payload: { value: T; [key: string]: unknown }) =>
+    | Promise<void>
+    | void;
 };
 
 /**

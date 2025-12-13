@@ -1,14 +1,21 @@
 import { z } from "zod";
-import { StepOne, stepOneSchema } from "./steps/step-one";
-import { StepTwo, stepTwoSchema } from "./steps/step-two";
+import { StepOne } from "./steps/step-one";
+import { StepTwo } from "./steps/step-two";
 import type { E164Number } from "libphonenumber-js";
+import type { MultiStepConfig } from "@homicasa/multistep";
+import {
+  businessOnboarding,
+  type BusinessOnboardingSchemaType,
+} from "@homicasa/schemas";
 
-export const fullSchema = z.intersection(stepOneSchema, stepTwoSchema);
-
-export const onboardingConfig = {
+export const onboardingConfig: MultiStepConfig<BusinessOnboardingSchemaType> = {
   steps: [StepOne, StepTwo],
-  stepSchemas: [stepOneSchema, stepTwoSchema, null],
-  fullSchema,
+  stepSchemas: [
+    businessOnboarding.stepOneSchema,
+    businessOnboarding.stepTwoSchema,
+    null,
+  ],
+  fullSchema: businessOnboarding.fullSchema,
   defaultValues: {
     businessDisplayName: "",
     businessType: "sole_trader" as const,
@@ -24,5 +31,8 @@ export const onboardingConfig = {
     businessState: "",
     businessPostcode: "",
     businessCountry: "",
+  },
+  onSubmit: async ({ value }) => {
+    console.log("Submitting business onboarding", value);
   },
 };

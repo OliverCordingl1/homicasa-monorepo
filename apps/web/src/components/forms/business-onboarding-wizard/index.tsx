@@ -4,7 +4,7 @@ import { MultiStepFormProvider, MultiStepForm } from "@homicasa/multistep";
 import { Button } from "@/components/ui/button";
 import { onboardingConfig } from "./config";
 
-export function OnboardingFormProvider() {
+export function BusinessOnboardingForm() {
   return (
     <MultiStepFormProvider config={onboardingConfig}>
       <MultiStepForm

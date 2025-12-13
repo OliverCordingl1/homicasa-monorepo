@@ -46,8 +46,11 @@ export function MultiStepFormProvider<T extends Record<string, unknown>>({
 
   const form = useForm({
     defaultValues,
-    onSubmit: async ({ value }) => {
-      console.log("Form submitted:", value);
+    onSubmit: async (submission) => {
+      if (config.onSubmit) {
+        return config.onSubmit(submission);
+      }
+      console.log("Form submitted:", submission.value);
     },
   });
 
