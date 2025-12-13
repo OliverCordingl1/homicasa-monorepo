@@ -5,13 +5,17 @@ import {
   type NewBusiness,
 } from "@homicasa/db/repositories/business-repository";
 import { db } from "@homicasa/db";
+import type { BusinessOnboardingSchemaType } from "@homicasa/schemas";
+import { BusinessMemberService } from "./business-member-service";
 
 export class BusinessService extends BaseService {
   private businessRepository: BusinessRepository;
+  private businessMemberService: BusinessMemberService;
 
   constructor(ctx: any) {
     super(ctx);
     this.businessRepository = new BusinessRepository(db);
+    this.businessMemberService = new BusinessMemberService(ctx);
   }
 
   /**
@@ -88,5 +92,59 @@ export class BusinessService extends BaseService {
     }
 
     return deleted;
+  }
+
+  async onboardBusiness(data: BusinessOnboardingSchemaType): Promise<Business> {
+    this.getCurrentUserId(); // Ensure user is authenticated
+
+    // TODO: Check if user is allowed to onboard a business
+
+    const newBusinessData: NewBusiness = {
+      displayName: data.businessDisplayName,
+      legalName:
+        typeof data.businessLegalName === "string"
+          ? data.businessLegalName
+          : `${data.businessLegalName.firstName} ${data.businessLegalName.lastName}`, // TODO: figure out if this is the best way of handling this?
+
+      businessType: data.businessType,
+      legalIndividualFirstName:
+        typeof data.businessLegalName === "object"
+          ? data.businessLegalName.firstName
+          : null,
+      legalIndividualLastName:
+        typeof data.businessLegalName === "object"
+          ? data.businessLegalName.lastName
+          : null,
+      // TODO: Add tax number
+
+      email: data.businessEmail,
+      phoneNumber: data.businessPhone || null,
+      addressLine1: data.businessAddressLine1,
+      addressLine2: data.businessAddressLine2 || null,
+      addressLine3: data.businessAddressLine3 || null,
+      addressLine4: data.businessAddressLine4 || null,
+      city: data.businessCity,
+      county: data.businessCounty || null,
+      state: data.businessState || null,
+      postcode: data.businessPostcode,
+      country: data.businessCountry,
+    };
+
+    const createdBusiness = await this.businessRepository.create(
+      newBusinessData
+    );
+
+    // Add business member linking current user to the new business
+    await this.businessMemberService.addMember(
+      {
+        businessId: createdBusiness.id,
+        userId: this.getCurrentUserId(),
+        role: "owner",
+        permissions: {},
+      },
+      { skipPermissionCheck: true }
+    );
+
+    return createdBusiness;
   }
 }

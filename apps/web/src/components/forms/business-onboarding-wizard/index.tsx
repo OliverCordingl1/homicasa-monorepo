@@ -1,12 +1,31 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
 import { MultiStepFormProvider, MultiStepForm } from "@homicasa/multistep";
 import { Button } from "@/components/ui/button";
 import { onboardingConfig } from "./config";
+import { trpc, queryClient } from "@/utils/trpc";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function BusinessOnboardingForm() {
+  const router = useRouter();
+  const onboardMutation = useMutation({
+    ...trpc.businesses.onboard.mutationOptions(),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: trpc.businesses.getAll.queryKey(),
+      });
+      toast.success("Business onboarded successfully!");
+      router.push("/dashboard");
+    },
+  });
+
   return (
-    <MultiStepFormProvider config={onboardingConfig}>
+    <MultiStepFormProvider
+      config={onboardingConfig}
+      onSubmit={async ({ value }) => onboardMutation.mutateAsync(value)}
+    >
       <MultiStepForm
         className="w-full"
         renderNavigation={({

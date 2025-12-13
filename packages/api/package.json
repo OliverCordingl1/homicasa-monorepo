@@ -24,6 +24,7 @@
     "dotenv": "catalog:",
     "zod": "^4.1.11",
     "@homicasa/auth": "workspace:*",
+    "@homicasa/schemas": "workspace:*",
     "@homicasa/db": "workspace:*"
   }
 }

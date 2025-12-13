@@ -37,9 +37,11 @@ export const MultiStepContext = createContext<ContextValue | null>(null);
 export function MultiStepFormProvider<T extends Record<string, unknown>>({
   config,
   children,
+  onSubmit: overrideOnSubmit,
 }: {
   config: MultiStepConfig<T>;
   children: React.ReactNode;
+  onSubmit?: (submission: { value: T }) => Promise<void | any>;
 }) {
   const [step, setStep] = useState(0);
   const { defaultValues, stepSchemas } = config;
@@ -47,8 +49,9 @@ export function MultiStepFormProvider<T extends Record<string, unknown>>({
   const form = useForm({
     defaultValues,
     onSubmit: async (submission) => {
-      if (config.onSubmit) {
-        return config.onSubmit(submission);
+      const handler = overrideOnSubmit || config.onSubmit;
+      if (handler) {
+        return handler(submission);
       }
       console.log("Form submitted:", submission.value);
     },

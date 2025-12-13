@@ -212,6 +212,9 @@ importers:
       '@homicasa/db':
         specifier: workspace:*
         version: link:../db
+      '@homicasa/schemas':
+        specifier: workspace:*
+        version: link:../schemas
       '@trpc/client':
         specifier: 'catalog:'
         version: 11.7.2(@trpc/server@11.7.2(typescript@5.9.3))(typescript@5.9.3)

@@ -3,6 +3,7 @@ import {
   BusinessController,
   businessSchemas,
 } from "../controllers/business-controller";
+import { businessOnboarding } from "@homicasa/schemas";
 
 export const businessRouter = router({
   // Public endpoints
@@ -49,5 +50,12 @@ export const businessRouter = router({
     .mutation(async ({ ctx, input }) => {
       const controller = new BusinessController(ctx);
       return controller.delete(input);
+    }),
+
+  onboard: protectedProcedure
+    .input(businessOnboarding.fullSchema)
+    .mutation(async ({ ctx, input }) => {
+      const controller = new BusinessController(ctx);
+      return controller.onboard(input);
     }),
 });

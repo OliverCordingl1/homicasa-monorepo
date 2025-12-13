@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { StepOne } from "./steps/step-one";
 import { StepTwo } from "./steps/step-two";
 import type { E164Number } from "libphonenumber-js";
@@ -7,7 +6,6 @@ import {
   businessOnboarding,
   type BusinessOnboardingSchemaType,
 } from "@homicasa/schemas";
-
 export const onboardingConfig: MultiStepConfig<BusinessOnboardingSchemaType> = {
   steps: [StepOne, StepTwo],
   stepSchemas: [
@@ -31,8 +29,5 @@ export const onboardingConfig: MultiStepConfig<BusinessOnboardingSchemaType> = {
     businessState: "",
     businessPostcode: "",
     businessCountry: "",
-  },
-  onSubmit: async ({ value }) => {
-    console.log("Submitting business onboarding", value);
   },
 };

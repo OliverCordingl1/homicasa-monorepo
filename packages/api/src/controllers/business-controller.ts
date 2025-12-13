@@ -1,6 +1,10 @@
 import { BaseController } from "./base-controller";
 import { BusinessService } from "../services/business-service";
 import { z } from "zod";
+import {
+  businessOnboarding,
+  type BusinessOnboardingSchemaType,
+} from "@homicasa/schemas";
 
 // Validation schemas
 const createBusinessSchema = z.object({
@@ -113,6 +117,19 @@ export class BusinessController extends BaseController {
       return await this.businessService.deleteBusiness(id);
     } catch (error) {
       return this.handleError(error, "Failed to delete business");
+    }
+  }
+
+  /**
+   * Onboard a business
+   */
+  async onboard(input: BusinessOnboardingSchemaType) {
+    try {
+      const validatedData = businessOnboarding.fullSchema.parse(input);
+
+      return await this.businessService.onboardBusiness(validatedData);
+    } catch (error) {
+      return this.handleError(error, "Failed to onboard business");
     }
   }
 }
