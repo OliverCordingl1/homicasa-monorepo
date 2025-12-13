@@ -15,21 +15,10 @@ import { CountrySelect } from "@/components/country-select";
 import { Button } from "@/components/ui/button";
 import { Plus, Minus } from "lucide-react";
 import { useState } from "react";
-
-export const stepTwoSchema = z.object({
-  businessAddressLine1: z.string().min(1, "Address Line 1 is required"),
-  businessAddressLine2: z.string().optional(),
-  businessAddressLine3: z.string().optional(),
-  businessAddressLine4: z.string().optional(),
-  businessCity: z.string().min(1, "City is required"),
-  businessCounty: z.string().optional(),
-  businessState: z.string().optional(),
-  businessPostcode: z.string().min(1, "Postcode is required"),
-  businessCountry: z.string().regex(/^[A-Z]{2}$/, "Invalid country code"), // ISO 3166-1 alpha-2
-});
+import { type BusinessOnboardingStepTwoSchemaType as StepTwoSchemaType } from "@homicasa/schemas";
 
 export function StepTwo() {
-  const { form } = useMultiStep<z.infer<typeof stepTwoSchema>>();
+  const { form } = useMultiStep<StepTwoSchemaType>();
   const [showLine3, setShowLine3] = useState(false);
   const [showLine4, setShowLine4] = useState(false);
 

@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { OnboardingFormProvider } from "@/components/forms/business-onboarding-wizard/provider-wrapper";
-import Link from "next/link";
+import { BusinessOnboardingForm } from "@/components/forms/business-onboarding-wizard";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default async function OnboardingPage() {
@@ -13,7 +11,7 @@ export default async function OnboardingPage() {
 
       <Card className="w-1/2">
         <CardContent className="pb-6">
-          <OnboardingFormProvider />
+          <BusinessOnboardingForm />
         </CardContent>
       </Card>
     </div>
