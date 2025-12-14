@@ -1,6 +1,7 @@
 import { protectedProcedure, publicProcedure, router } from "../index";
 import { propertyRouter } from "./property-router";
 import { businessRouter } from "./business-router";
+import { businessMemberRouter } from "./business-member-router";
 import { tenantRouter } from "./tenant-router";
 
 export const appRouter = router({
@@ -20,6 +21,7 @@ export const appRouter = router({
   // Domain routers
   properties: propertyRouter,
   businesses: businessRouter,
+  businessMembers: businessMemberRouter,
   tenants: tenantRouter,
 });
 
