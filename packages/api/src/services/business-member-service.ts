@@ -1,5 +1,9 @@
 import { BaseService } from "./base-service";
-import { BusinessMemberRepository } from "@homicasa/db/repositories/business-member-repository";
+import {
+  BusinessMemberRepository,
+  type BusinessMember,
+  type NewBusinessMember,
+} from "@homicasa/db/repositories/business-member-repository";
 import { db } from "@homicasa/db";
 import type { BusinessMembershipSwitchButtonSchemaType } from "@homicasa/schemas";
 
@@ -44,17 +48,17 @@ export class BusinessMemberService extends BaseService {
   //   return this.repo.findAll();
   // }
 
-  // async addMember(
-  //   data: NewBusinessMember,
-  //   options: {
-  //     skipPermissionCheck?: boolean;
-  //   } = { skipPermissionCheck: false }
-  // ): Promise<BusinessMember> {
-  //   if (!options.skipPermissionCheck) {
-  //     this.getCurrentUserId();
-  //   }
-  //   return this.repo.create(data);
-  // }
+  async addMember(
+    data: NewBusinessMember,
+    options: {
+      skipPermissionCheck?: boolean;
+    } = { skipPermissionCheck: false }
+  ): Promise<BusinessMember> {
+    if (!options.skipPermissionCheck) {
+      this.getCurrentUserId();
+    }
+    return this.repo.create(data);
+  }
 
   // async updateMember(
   //   id: string,
