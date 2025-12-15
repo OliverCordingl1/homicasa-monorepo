@@ -1,15 +1,9 @@
 import { redirect } from "next/navigation";
 import Dashboard from "./dashboard-example";
-import { headers } from "next/headers";
-import { authClient } from "@/lib/auth-client";
+import { getSession } from "@/lib/get-session";
 
 export default async function DashboardPage() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-      throw: true,
-    },
-  });
+  const session = await getSession();
 
   if (!session?.user) {
     redirect("/login");

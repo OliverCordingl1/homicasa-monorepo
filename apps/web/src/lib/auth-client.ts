@@ -6,3 +6,5 @@ export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
   plugins: [inferAdditionalFields<typeof auth>()],
 });
+
+export type Session = typeof authClient.$Infer.Session;
