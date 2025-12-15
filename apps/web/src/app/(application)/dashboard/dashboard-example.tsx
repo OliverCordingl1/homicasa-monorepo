@@ -10,6 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import UserMenu from "@/components/user-menu";
+import { useBreadcrumbs } from "@/providers/breadcrumb-provider";
+import { useEffect } from "react";
 
 export default function Dashboard({
   session,
@@ -17,6 +19,18 @@ export default function Dashboard({
   session: typeof authClient.$Infer.Session;
 }) {
   // Example: Fetch all properties
+  const { setBreadcrumbs } = useBreadcrumbs();
+
+  useEffect(() => {
+    setBreadcrumbs([
+      { title: "Dashboard", href: "/dashboard" },
+      { title: "Home1" },
+      { title: "Home2" },
+      { title: "Home3" },
+      { title: "Home4" },
+    ]);
+  }, [setBreadcrumbs]);
+
   const properties = useQuery(trpc.properties.getAll.queryOptions());
 
   // Example: Fetch all businesses
