@@ -8,13 +8,26 @@ import {
 } from "@/components/ui/sidebar";
 import { BreadcrumbProvider } from "@/providers/breadcrumb-provider";
 import { MultiTenantProvider } from "@/providers/multitenant-provider";
+import { authClient } from "@/lib/auth-client";
+import { headers } from "next/headers";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await authClient.getSession({
+    fetchOptions: {
+      headers: await headers(),
+      throw: true,
+    },
+  });
+
   return (
     <MultiTenantProvider>
       <BreadcrumbProvider>
         <SidebarProvider>
-          <AppSidebar />
+          <AppSidebar session={session} />
           <SidebarInset>
             <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
               <div className="flex items-center gap-2 px-4">

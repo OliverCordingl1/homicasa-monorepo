@@ -10,15 +10,22 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { NavUser } from "./nav-user";
+import type { authClient } from "@/lib/auth-client";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  session,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  session: typeof authClient.$Infer.Session | null;
+}) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <BusinessSwitcher />
       </SidebarHeader>
       <SidebarContent></SidebarContent>
-      <SidebarFooter></SidebarFooter>
+      <SidebarFooter>{session && <NavUser session={session} />}</SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
