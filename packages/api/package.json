@@ -11,20 +11,20 @@
   "type": "module",
   "scripts": {},
   "devDependencies": {
-    "@types/express": "catalog:",
-    "@homicasa/config": "workspace:*"
+    "@homicasa/config": "workspace:*",
+    "@types/express": "catalog:"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
-    "@trpc/server": "catalog:",
+    "@homicasa/auth": "workspace:*",
+    "@homicasa/db": "workspace:*",
+    "@homicasa/schemas": "workspace:*",
     "@trpc/client": "catalog:",
+    "@trpc/server": "catalog:",
     "better-auth": "catalog:",
     "dotenv": "catalog:",
-    "zod": "^4.1.11",
-    "@homicasa/auth": "workspace:*",
-    "@homicasa/schemas": "workspace:*",
-    "@homicasa/db": "workspace:*"
+    "zod": "^4.1.11"
   }
 }

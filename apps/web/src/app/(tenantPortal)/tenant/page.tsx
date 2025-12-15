@@ -1,6 +1,4 @@
-import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 import {
   Card,
   CardContent,
@@ -17,14 +15,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { getSession } from "@/lib/get-session";
 
 export default async function TenantPage() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-      throw: true,
-    },
-  });
+  const session = await getSession();
 
   if (!session?.user) {
     redirect("/login");

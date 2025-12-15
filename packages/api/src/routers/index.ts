@@ -3,6 +3,7 @@ import { propertyRouter } from "./property-router";
 import { businessRouter } from "./business-router";
 import { businessMemberRouter } from "./business-member-router";
 import { tenantRouter } from "./tenant-router";
+import { accountRouter } from "./account-router";
 
 export const appRouter = router({
   // Health check endpoint
@@ -23,6 +24,7 @@ export const appRouter = router({
   businesses: businessRouter,
   businessMembers: businessMemberRouter,
   tenants: tenantRouter,
+  accounts: accountRouter,
 });
 
 export type AppRouter = typeof appRouter;

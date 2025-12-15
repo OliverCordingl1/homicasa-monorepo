@@ -8,20 +8,14 @@ import {
 } from "@/components/ui/sidebar";
 import { BreadcrumbProvider } from "@/providers/breadcrumb-provider";
 import { MultiTenantProvider } from "@/providers/multitenant-provider";
-import { authClient } from "@/lib/auth-client";
-import { headers } from "next/headers";
+import { getSession } from "@/lib/get-session";
 
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-      throw: true,
-    },
-  });
+  const session = await getSession();
 
   return (
     <MultiTenantProvider>
