@@ -4,3 +4,6 @@ export type {
   BusinessOnboardingStepOneSchemaType,
   BusinessOnboardingStepTwoSchemaType,
 } from "./onboarding/business-onboarding";
+
+export * as navigationSchemas from "./navigation";
+export type { BusinessMembershipSwitchButtonSchemaType } from "./navigation";
