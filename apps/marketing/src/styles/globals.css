@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Custom color palette - warm, sophisticated, not typical shadcn */
+  --color-brand-50: oklch(0.98 0.01 75);
+  --color-brand-100: oklch(0.95 0.02 75);
+  --color-brand-200: oklch(0.88 0.04 75);
+  --color-brand-300: oklch(0.78 0.07 75);
+  --color-brand-400: oklch(0.68 0.1 70);
+  --color-brand-500: oklch(0.58 0.12 65);
+  --color-brand-600: oklch(0.5 0.12 60);
+  --color-brand-700: oklch(0.42 0.1 55);
+  --color-brand-800: oklch(0.35 0.08 50);
+  --color-brand-900: oklch(0.28 0.06 45);
+  --color-brand-950: oklch(0.18 0.04 40);
+
+  /* Accent - a subtle warm coral */
+  --color-accent-50: oklch(0.98 0.01 25);
+  --color-accent-100: oklch(0.95 0.03 25);
+  --color-accent-200: oklch(0.9 0.06 25);
+  --color-accent-300: oklch(0.82 0.1 25);
+  --color-accent-400: oklch(0.72 0.14 25);
+  --color-accent-500: oklch(0.62 0.16 25);
+  --color-accent-600: oklch(0.55 0.15 25);
+  --color-accent-700: oklch(0.48 0.13 25);
+  --color-accent-800: oklch(0.4 0.1 25);
+  --color-accent-900: oklch(0.32 0.07 25);
+
+  /* Neutral tones - warm grays */
+  --color-surface-50: oklch(0.99 0.002 80);
+  --color-surface-100: oklch(0.97 0.004 80);
+  --color-surface-200: oklch(0.94 0.006 80);
+  --color-surface-300: oklch(0.88 0.008 80);
+  --color-surface-400: oklch(0.7 0.01 80);
+  --color-surface-500: oklch(0.55 0.01 80);
+  --color-surface-600: oklch(0.45 0.01 80);
+  --color-surface-700: oklch(0.35 0.008 80);
+  --color-surface-800: oklch(0.25 0.006 80);
+  --color-surface-900: oklch(0.18 0.004 80);
+  --color-surface-950: oklch(0.12 0.003 80);
+
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* Custom spacing for generous whitespace */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-26: 6.5rem;
+  --spacing-30: 7.5rem;
+
+  /* Smooth easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Border radius - softer, more approachable */
+  --radius-soft: 1rem;
+  --radius-softer: 1.5rem;
+  --radius-pill: 9999px;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface-50);
+  color: var(--color-surface-900);
+  line-height: 1.6;
+}
+
+/* (Removed H1-hiding rule; we want MDX H1s visible) */
+
+/* Selection color */
+::selection {
+  background-color: var(--color-brand-200);
+  color: var(--color-brand-900);
+}
+
+/* Focus styles - subtle but accessible */
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-300);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-400);
+}
+
+/* Custom utility classes */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* Gradient text utility */
+@utility gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-700) 0%,
+    var(--color-brand-500) 50%,
+    var(--color-accent-500) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle glass effect */
+@utility glass {
+  background: oklch(1 0 0 / 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+
+/* Noise texture overlay for depth - using regular class since @utility doesn't support pseudo-elements */
+.noise {
+  position: relative;
+}
+
+.noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
